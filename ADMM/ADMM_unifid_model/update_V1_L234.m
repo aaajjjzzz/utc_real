@@ -24,7 +24,11 @@ function V_new = update_V1_L234(V1,V2,L_1,L_2,Y1,Y2,mu,alpha,is_test)
     t_V1 = V1;
     [m1,n1] = size(V1);
     [m2,n2] = size(V2);
-    gd_swither = 0;
+    gd_swither = 2;
+    
+    m = 0;
+    gamma = 0.9;
+    min_dif2 = 1e-3;
 %% use gd to 
     while true %这里没用nesterov，直接梯度下降了
         if gd_swither == 1
@@ -48,6 +52,17 @@ function V_new = update_V1_L234(V1,V2,L_1,L_2,Y1,Y2,mu,alpha,is_test)
             %==================================================================
             %df_fg12 = norm(f_g_partial-f_g,1);
             t_V1 = t_V1 - alpha*f_g;  
+
+        elseif gd_swither == 2
+            temp = t_V1 + gamma*m;
+            n_g = -2*L_1*temp...
+                - L_2'*V2 +...
+                2*mu*temp*(temp'*temp-eye(n1)+Y2/mu)...
+                +mu*(partial_kron_col(temp,V2,Y1,mu) );
+            m = gamma*m -alpha*n_g;
+            t_V1 = t_V1 + m;
+
+
         else    
            %=================================================================
 %             f_g_partial = -2*L_1*t_V1+...
@@ -61,9 +76,14 @@ function V_new = update_V1_L234(V1,V2,L_1,L_2,Y1,Y2,mu,alpha,is_test)
             t_V1 = t_V1 - alpha*f_g;   
         end
         iter = iter+1;  
-        if norm(f_g) < min_dif || iter > 1e4
+        if norm(m,inf) < min_dif2
+            disp(2)
             break;
+        elseif iter >1e4
+            disp(3)
+            break
         end
+
         if is_test
             if iter==1 || mod(iter,10) == 0
                 obj = obj_f_V1(t_V1,V2,L_1,L_2,Y1,Y2,mu);

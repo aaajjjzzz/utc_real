@@ -33,7 +33,7 @@ function finale_result = func_UTC(data,gt,dataset_name,save_path, opts_global)
     L_hat_2 = eye(m)-L_2;
     L_2_constructW = full(constructW(data));
 
-    [L_4, embedding] = computing4tensor(data, knn, num_cluster,order4_sim_opt);%和论文不一样
+    [L_4, embedding] = computing4(data,num_cluster,order4_sim_opt);%和论文不一样
     %L4 = (L_4+L_4')/2;
     L_4 = (L_4+L_4')/2;
     L_3 = get_L3(data,knn,num_cluster,1);

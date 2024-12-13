@@ -28,18 +28,16 @@ for i1 = 1:size(site,1)
     column_1(i1) = m*(site(i1,4)-1)+site(i1,3);
 end
 for i1 = 1:size(site,1)
-    row_2(i1) = m*(site(i1,4)-1)+site(i1,3);
-    column_2(i1) = m*(site(i1,2)-1)+site(i1,1);
+    row_2(i1) = m*(site(i1,1)-1)+site(i1,2);
+    column_2(i1) = m*(site(i1,3)-1)+site(i1,4);
 end
 for i1 = 1:size(site,1)
-    
-    row_3(i1) = m*(site(i1,2)-1)+site(i1,3);
-    column_3(i1) = m*(site(i1,4)-1)+site(i1,1);
+    row_3(i1) = m*(site(i1,4)-1)+site(i1,3);
+    column_3(i1) = m*(site(i1,2)-1)+site(i1,1);
 end
 for i1 = 1:size(site,1)
-  
-    row_4(i1) = m*(site(i1,4)-1)+site(i1,1);
-    column_4(i1) = m*(site(i1,2)-1)+site(i1,3);
+    row_4(i1) = m*(site(i1,3)-1)+site(i1,4);
+    column_4(i1) = m*(site(i1,1)-1)+site(i1,2);
 end
 
 row_all = single([row_1, row_2, row_3, row_4]);

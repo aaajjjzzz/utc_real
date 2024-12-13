@@ -41,7 +41,7 @@ function [dk1,dk_index1] = computing3tensor(data,S,knn,opt_sim)
                     S_ijk = 1-pdist([d_i;d_j],'cosine');
                 end
                 dk{num} = [dk{num}; S_ijk];
-                dk_index{num} = [dk_index{num};[pair(i1,1),pair(i1,2),num]];
+                dk_index{num} = [dk_index{num};[pair(i1,1),num,pair(i1,2)]];
 
             end
         end

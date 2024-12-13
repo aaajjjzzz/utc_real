@@ -1,5 +1,5 @@
 clc;clear;
-
+addpath(genpath('.\utils\methods_func'));
 load('C:\科研\谱聚类\UTC\代码实现\UTC_real\dataset\DriveFave.mat');
 [m,~] = size(gt);
 num_cluster = length(unique(gt));
